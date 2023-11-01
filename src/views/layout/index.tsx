@@ -27,7 +27,7 @@ function Layout() {
         <Siderbar collapsed={collapsed} setCollapsed={setCollapsed} pathname={pathname} />
       </div>
       <div className={`pt-16 duration-500 pl-${paddingLeft} `}>
-        <div className="">
+        <div className="p-7">
           <Outlet />
         </div>
       </div>
