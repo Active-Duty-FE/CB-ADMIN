@@ -6,7 +6,7 @@
 
 주요: react + typescirpt + lodash + react-router-dom + axios(intercepter 넣은 캡슐화 버전) + tailwindcss + materialUI
 
-유틸: formik(form control and submit) + yup(schema) + cripto-js(로그인 암호화)
+유틸: formik(form control and submit) + yup(schema) + crypto-js(로그인 암호화)
 
 configuration: create-react-app + craco + prettier
 
