@@ -1,5 +1,7 @@
 ## 어드민 시스템
 
+### (아이디: admin 비밀번호: 123456)
+
 #### 사용한 스택
 
 주요: react + typescirpt + lodash + react-router-dom + axios(intercepter 넣은 캡슐화 버전) + tailwindcss + materialUI
