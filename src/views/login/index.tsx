@@ -1,6 +1,5 @@
 import AInput from '@/components/common/form/a-input'
 import { appRequest } from '@/service'
-import { loginSchema } from '@/schema'
 import { LoginData, SetSubmitting } from '@/types'
 import { Response, User } from '@/types/ResponseType'
 import { decrypt, encrypt } from '@/utils/cryto'

@@ -9,13 +9,13 @@ function delayClass(str: string) {
   return str
 }
 function Layout() {
-  const [collapsed, setCollapsed] = useState(false)
-  const [paddingLeft, setPaddingLeft] = useState('200px')
+  const [collapsed, setCollapsed] = useState(true)
+  const [paddingLeft, setPaddingLeft] = useState<string | number>('200px')
   const pathname = useLocation().pathname
 
   useEffect(() => {
     if (collapsed) {
-      setPaddingLeft('81')
+      setPaddingLeft(20)
     } else {
       setPaddingLeft('[200px]')
     }
@@ -23,11 +23,11 @@ function Layout() {
   return (
     <div className="">
       <Header />
-      <div className="fixed left-0 top-16">
+      <div className="fixed left-0 top-16 z-10">
         <Siderbar collapsed={collapsed} setCollapsed={setCollapsed} pathname={pathname} />
       </div>
-      <div className={`pt-16 pl-${paddingLeft} duration-500`}>
-        <div className="p-7">
+      <div className={`pt-16 duration-500 pl-${paddingLeft} `}>
+        <div className="">
           <Outlet />
         </div>
       </div>

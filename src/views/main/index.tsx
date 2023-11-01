@@ -1,8 +1,5 @@
-import { Button } from '@mui/material'
-import { Form, redirect } from 'react-router-dom'
-
 function Main() {
-  return <div>main</div>
+  return <div className="flex justify-center items-center">Welcome</div>
 }
 
 export default Main
