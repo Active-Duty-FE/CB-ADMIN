@@ -3,6 +3,7 @@ import Siderbar from '../../components/layout/siderbar'
 import { Outlet, useLocation, useRoutes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Tutorial from '@/components/tutorial'
+import { verifyToken } from '@/utils/token'
 
 function delayClass(str: string) {
   const now = new Date().getTime()
@@ -12,7 +13,7 @@ function delayClass(str: string) {
 function Layout() {
   const pathname = useLocation().pathname
   const [paddingLeft, setPaddingLeft] = useState<number>(200)
-
+  const watched = localStorage.getItem('tips')
   return (
     <div className="">
       <Header />
@@ -24,7 +25,7 @@ function Layout() {
           <Outlet />
         </div>
       </div>
-      <Tutorial />
+      {watched !== 'watched' && <Tutorial />}
     </div>
   )
 }

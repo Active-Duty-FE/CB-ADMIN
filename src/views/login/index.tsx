@@ -55,7 +55,6 @@ function Login() {
     <div className="bg-blue-900 w-screen h-screen flex justify-center items-center ">
       <Paper elevation={10} className="p-4 min-w-[300px]">
         <h1 className="text-center">관리자 시스템</h1>
-
         <Formik
           initialValues={{
             username: '',

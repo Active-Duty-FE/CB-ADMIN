@@ -77,6 +77,10 @@ const Item: FC<IProps> = memo(({ setOpen }) => {
     setSliderIndex(index)
     setArrowTop(50 * (index + 3))
   }
+  const handleClose = () => {
+    localStorage.setItem('tips', 'watched')
+    setOpen(false)
+  }
   return (
     <div className="relative">
       <Arrow arrowTop={arrowTop} />
@@ -95,7 +99,7 @@ const Item: FC<IProps> = memo(({ setOpen }) => {
             </StyledButton>
           )}
           {sliderIndex === data.length - 1 ? (
-            <StyledButton variant="outlined" onClick={() => setOpen(false)}>
+            <StyledButton variant="outlined" onClick={handleClose}>
               닫기
             </StyledButton>
           ) : (
