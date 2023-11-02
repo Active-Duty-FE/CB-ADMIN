@@ -5,6 +5,8 @@ import DescItem from './desc-item'
 import Slider, { Settings } from 'react-slick'
 import styled from 'styled-components'
 import { Button } from '@mui/material'
+import { useAppDispatch } from '@/hooks/store'
+import { updateTipReset } from '@/store/modules/user-interface'
 
 interface IProps {
   children?: ReactNode
@@ -72,6 +74,7 @@ const Item: FC<IProps> = memo(({ setOpen }) => {
   const [arrowTop, setArrowTop] = useState(150)
   const [sliderIndex, setSliderIndex] = useState(0)
   const sliderRef = useRef<Slider>(null)
+  const appDispatch = useAppDispatch()
   useEffect(() => {}, [sliderIndex])
   const handleSliderChange = (index: number) => {
     setSliderIndex(index)
@@ -80,19 +83,18 @@ const Item: FC<IProps> = memo(({ setOpen }) => {
   const handleClose = () => {
     localStorage.setItem('tips', 'watched')
     setOpen(false)
+    appDispatch(updateTipReset(false))
   }
   return (
     <div className="relative">
-      <Arrow arrowTop={arrowTop} />
-
-      <div className="absolute left-[390px] top-[90px] ">
+      <div>
         <h2 className="text-sky-600">Tips!</h2>
         <Slider ref={sliderRef} {...settings} className="w-500" afterChange={(i) => handleSliderChange(i)}>
           {data.map((item) => (
             <DescItem item={item} />
           ))}
         </Slider>
-        <div className="absolute -right-32">
+        <div className="absolute -right-32 top-0">
           {sliderIndex !== 0 && (
             <StyledButton variant="outlined" onClick={() => sliderRef.current?.slickPrev()}>
               이전

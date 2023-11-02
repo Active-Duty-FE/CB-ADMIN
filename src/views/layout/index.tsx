@@ -4,6 +4,8 @@ import { Outlet, useLocation, useRoutes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Tutorial from '@/components/tutorial'
 import { verifyToken } from '@/utils/token'
+import { useSelector } from 'react-redux'
+import { useAppSelector } from '@/hooks/store'
 
 function delayClass(str: string) {
   const now = new Date().getTime()
@@ -14,6 +16,11 @@ function Layout() {
   const pathname = useLocation().pathname
   const [paddingLeft, setPaddingLeft] = useState<number>(200)
   const watched = localStorage.getItem('tips')
+  const { tipReset } = useAppSelector((state) => {
+    return {
+      tipReset: state.userInterface.tipReset
+    }
+  })
   return (
     <div className="">
       <Header />
@@ -25,7 +32,7 @@ function Layout() {
           <Outlet />
         </div>
       </div>
-      {watched !== 'watched' && <Tutorial />}
+      {watched !== 'watched' && <Tutorial tipReset={tipReset} />}
     </div>
   )
 }

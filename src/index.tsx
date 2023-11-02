@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient } from './router'
 import { ErrorBoundary } from 'react-error-boundary'
+import { Provider } from 'react-redux'
+import store from './store'
 const rootElement = document.getElementById('root') as HTMLElement
 const root = ReactDOM.createRoot(rootElement)
 const theme = createTheme({
@@ -64,7 +66,9 @@ root.render(
     <ErrorBoundary fallback={<div>fallback render</div>}>
       <QueryClientProvider client={queryClient}>
         <StyledEngineProvider injectFirst>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </StyledEngineProvider>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
