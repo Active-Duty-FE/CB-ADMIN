@@ -84,7 +84,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const UserList = forwardRef(() => {
   const renderCount = useRef(0)
   renderCount.current = renderCount.current + 1
-  console.log(renderCount.current, 'renderCount')
 
   const [pagesize, setPagesize] = useState(5)
   const [pagenum, setPagenum] = useState(1)

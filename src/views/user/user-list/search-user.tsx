@@ -29,10 +29,8 @@ const SearchUser: FC<IProps> = memo(({ searchFn, keyword, setKeyword, setIsKeywo
   const checkSearchBlur = (event: MouseEvent) => {
     event.stopPropagation()
     if (searchButtonRef.current && event.target !== searchButtonRef.current && keyword === '') {
-      console.log('검색 버튼 focus out ')
       setBlurWithEmpty(false)
     } else {
-      console.log('검색 버튼 focus in')
       setBlurWithEmpty(true)
       setIsKeywordFocused(true)
       setIsKeywordFocused(false)
