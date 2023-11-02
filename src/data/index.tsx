@@ -30,7 +30,7 @@ export const menuItem: MenuItemType[] = [
       {
         label: '권한 리스트',
         icon: <WidgetsIcon />,
-        to: '/permission-list'
+        to: '/permission'
       }
     ]
   },
@@ -41,28 +41,28 @@ export const menuItem: MenuItemType[] = [
       {
         label: '리스트',
         icon: <WidgetsIcon />,
-        to: '/product-list'
+        to: '/product'
       },
       {
         label: '파라미터',
         icon: <WidgetsIcon />,
-        to: '/param-list'
+        to: '/param'
       },
       {
         label: '분류',
         icon: <WidgetsIcon />,
-        to: '/category-list'
+        to: '/category'
       }
     ]
   },
   {
-    label: '오더',
+    label: '주문',
     icon: <ListAltIcon />,
     children: [
       {
         label: '리스트',
         icon: <WidgetsIcon />,
-        to: '/order-list'
+        to: '/order'
       }
     ]
   },
@@ -73,7 +73,7 @@ export const menuItem: MenuItemType[] = [
       {
         label: '리스트',
         icon: <WidgetsIcon />,
-        to: '/data-list'
+        to: '/data-view'
       }
     ]
   }

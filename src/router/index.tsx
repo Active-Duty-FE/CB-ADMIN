@@ -9,6 +9,12 @@ import AuthRoute from '@/components/layout/auth-route'
 import { QueryClient } from 'react-query'
 import RoleList from '@/views/role/role-list'
 import Role from '@/views/role'
+import Product from '@/views/product'
+import Param from '@/views/param'
+import Category from '@/views/catagory'
+import Order from '@/views/order'
+import DataView from '@/views/data-view'
+import Permission from '@/views/permission'
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -37,6 +43,30 @@ const router = createBrowserRouter([
       {
         path: '/role-list',
         element: <Role />
+      },
+      {
+        path: '/permission',
+        element: <Permission />
+      },
+      {
+        path: '/product',
+        element: <Product />
+      },
+      {
+        path: '/param',
+        element: <Param />
+      },
+      {
+        path: '/category',
+        element: <Category />
+      },
+      {
+        path: '/order',
+        element: <Order />
+      },
+      {
+        path: '/data-view',
+        element: <DataView />
       }
     ]
   },
