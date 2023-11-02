@@ -2,6 +2,7 @@ import Header from '../../components/layout/header'
 import Siderbar from '../../components/layout/siderbar'
 import { Outlet, useLocation, useRoutes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import Tutorial from '@/components/tutorial'
 
 function delayClass(str: string) {
   const now = new Date().getTime()
@@ -9,28 +10,21 @@ function delayClass(str: string) {
   return str
 }
 function Layout() {
-  const [collapsed, setCollapsed] = useState(true)
-  const [paddingLeft, setPaddingLeft] = useState<string | number>('200px')
   const pathname = useLocation().pathname
+  const [paddingLeft, setPaddingLeft] = useState<number>(200)
 
-  useEffect(() => {
-    if (collapsed) {
-      setPaddingLeft(20)
-    } else {
-      setPaddingLeft('[200px]')
-    }
-  }, [collapsed])
   return (
     <div className="">
       <Header />
       <div className="fixed left-0 top-16 z-10">
-        <Siderbar collapsed={collapsed} setCollapsed={setCollapsed} pathname={pathname} />
+        <Siderbar setPaddingLeft={setPaddingLeft} pathname={pathname} />
       </div>
-      <div className={`pt-16 duration-500 pl-${paddingLeft} `}>
+      <div className={`pt-16 duration-500 pl-${paddingLeft}`}>
         <div className="p-7">
           <Outlet />
         </div>
       </div>
+      <Tutorial />
     </div>
   )
 }

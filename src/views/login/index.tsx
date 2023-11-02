@@ -28,7 +28,6 @@ function Login() {
   }
 
   const submitHandler = async (values: LoginData, { setSubmitting }: { setSubmitting: SetSubmitting }) => {
-    console.log('login')
     setLoading(true)
     try {
       const {
@@ -41,6 +40,8 @@ function Login() {
         const token = data.token
         window.localStorage.setItem('token', encrypt({ token, time: new Date().getTime() }, 'my-token'))
         navigate('/')
+      } else {
+        alert('아이디 혹은 비밀번호 오류입니다.')
       }
     } catch (error) {
       if (error === 'meta 400') {

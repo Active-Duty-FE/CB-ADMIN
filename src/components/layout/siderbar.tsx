@@ -1,18 +1,26 @@
 import { menuItem } from '@/data'
 import path from 'path'
-import { FC, Fragment, useState } from 'react'
+import { FC, Fragment, useEffect, useState } from 'react'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { NavLink } from 'react-router-dom'
 
 interface IProps {
-  collapsed?: boolean
-  setCollapsed?: (collapse: boolean) => void
+  setPaddingLeft?: (paddingLeft: number) => void
   pathname?: string
 }
 
 const Siderbar: FC<IProps> = (props) => {
-  const { collapsed, setCollapsed, pathname } = props
-
+  const [collapsed, setCollapsed] = useState(false)
+  const { setPaddingLeft, pathname } = props
+  useEffect(() => {
+    if (setPaddingLeft) {
+      if (collapsed) {
+        setPaddingLeft(81)
+      } else {
+        setPaddingLeft(200)
+      }
+    }
+  }, [collapsed])
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
       <Sidebar collapsed={collapsed} backgroundColor="#313743" width="200px" transitionDuration={500}>

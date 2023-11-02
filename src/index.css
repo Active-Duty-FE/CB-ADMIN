@@ -12,3 +12,49 @@ input[type='number']::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
+
+@keyframes arrowBounce {
+  0%,
+  100% {
+    transform: translateX(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateX(-20px);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+.arrow-bounce {
+  animation: arrowBounce 1000ms infinite;
+}
+
+.pl-81 {
+  padding-left: 81px;
+}
+.pl-200 {
+  padding-left: 200px;
+}
+.top-150 {
+  top: 150px;
+}
+.top-200 {
+  top: 200px;
+}
+.top-250 {
+  top: 250px;
+}
+.top-300 {
+  top: 300px;
+}
+.top-350 {
+  top: 350px;
+}
+.top-400 {
+  top: 400px;
+}
+.top-450 {
+  top: 450px;
+}
+.top-500 {
+  top: 500px;
+}

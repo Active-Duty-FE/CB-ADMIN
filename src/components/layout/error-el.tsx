@@ -8,7 +8,7 @@ function ErrorEl() {
   const error: any = useRouteError()
 
   useEffect(() => {
-    if (error.message === '无效token') {
+    if (error.message === 'invalid token') {
       window.localStorage.setItem('token', '')
       navigate('/login')
     }
