@@ -26,7 +26,8 @@ export class AppRequest {
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
         const meta = res.data.meta
-        if (meta.msg == '删除成功' || meta.msg == '创建成功' || meta.msg == '取消权限成功' || meta.status !== 200) {
+        const regex = /获取/
+        if (!regex.test(meta.msg)) {
           store.dispatch(updateMetaSlice({ ...meta, switch: !store.getState().metaSlice.switch }))
         }
         return res
