@@ -6,6 +6,7 @@ import Tutorial from '@/components/tutorial'
 import { verifyToken } from '@/utils/token'
 import { useSelector } from 'react-redux'
 import { useAppSelector } from '@/hooks/store'
+import { Snackbar } from '@mui/material'
 
 function delayClass(str: string) {
   const now = new Date().getTime()
@@ -21,6 +22,7 @@ function Layout() {
       tipReset: state.userInterface.tipReset
     }
   })
+
   return (
     <div className="">
       <Header />

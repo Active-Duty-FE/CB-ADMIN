@@ -2,6 +2,9 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import { AppAxiosRequestConfig, AppCreateAxiosDefaults, AppInternalAxiosRequestConfig } from './config'
 import { decrypt } from '@/utils/cryto'
 import { Response } from '@/types/ResponseType'
+import store from '@/store'
+import { update } from 'lodash'
+import { updateMetaSlice } from '@/store/modules/meta'
 
 export class AppRequest {
   private instance: AxiosInstance
@@ -22,10 +25,10 @@ export class AppRequest {
     )
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
-        // if (res.headers.getAuthorization) {
-        //   const token = res.headers.getAuthorization()
-        //   window.localStorage.setItem('token', token.toString())
-        // }
+        const meta = res.data.meta
+        if (meta.status !== 200) {
+          store.dispatch(updateMetaSlice({ ...meta, switch: !store.getState().metaSlice.switch }))
+        }
         return res
       },
       (error: any) => {

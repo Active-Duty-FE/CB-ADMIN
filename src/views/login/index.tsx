@@ -1,13 +1,15 @@
 import AInput from '@/components/common/form/a-input'
+import { useAppSelector } from '@/hooks/store'
+import { loginSchema } from '@/schema'
 import { appRequest } from '@/service'
 import { LoginData, SetSubmitting } from '@/types'
 import { Response, User } from '@/types/ResponseType'
 import { decrypt, encrypt } from '@/utils/cryto'
 import { verifyToken } from '@/utils/token'
 import { AccountCircle, Lock, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Button, IconButton, InputAdornment, Paper } from '@mui/material'
+import { Button, IconButton, InputAdornment, Paper, Snackbar } from '@mui/material'
 import { Formik, Form } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { Navigate, useNavigate } from 'react-router-dom'
 
@@ -40,8 +42,6 @@ function Login() {
         const token = data.token
         window.localStorage.setItem('token', encrypt({ token, time: new Date().getTime() }, 'my-token'))
         navigate('/')
-      } else {
-        alert('아이디 혹은 비밀번호 오류입니다.')
       }
     } catch (error) {
       if (error === 'meta 400') {
@@ -51,6 +51,7 @@ function Login() {
       setLoading(false)
     }
   }
+
   return (
     <div className="bg-blue-900 w-screen h-screen flex justify-center items-center ">
       <Paper elevation={10} className="p-4 min-w-[300px]">
@@ -60,7 +61,7 @@ function Login() {
             username: '',
             password: ''
           }}
-          // validationSchema={loginSchema}
+          validationSchema={loginSchema}
           onSubmit={submitHandler}
         >
           <Form className="flex flex-col">

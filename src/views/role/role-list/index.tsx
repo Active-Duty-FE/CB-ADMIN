@@ -37,8 +37,6 @@ const RoleList: FC<IProps> = memo(({ expanded }) => {
   const [rightsId, setRightsId] = useState(NaN)
   const [confirmPosition, setConfirmPosition] = useState({ left: 0, top: 0 })
 
-  console.log(data, 'role data')
-
   return (
     <TableContainer className="mt-4" component={Paper}>
       <Table aria-label="collapsible table">

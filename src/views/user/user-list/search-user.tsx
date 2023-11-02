@@ -19,14 +19,14 @@ interface IProps {
   setKeyword: (keyword: string) => void
   setIsKeywordFocused: (isKeywordFocused: boolean) => void
   isKeywordFocused: boolean
-  keyword: string
 }
 
-const SearchUser: FC<IProps> = memo(({ searchFn, keyword, setKeyword, setIsKeywordFocused }) => {
-  const [blurWithEmpty, setBlurWithEmpty] = useState(true)
+const SearchUser: FC<IProps> = memo(({ searchFn, setKeyword, setIsKeywordFocused }) => {
+  // const [blurWithEmpty, setBlurWithEmpty] = useState(true)
   const searchButtonRef = useRef<HTMLButtonElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
-  const checkSearchBlur = (event: MouseEvent) => {
+  {
+    /*const checkSearchBlur = (event: MouseEvent) => {
     event.stopPropagation()
     if (searchButtonRef.current && event.target !== searchButtonRef.current && keyword === '') {
       setBlurWithEmpty(false)
@@ -38,22 +38,25 @@ const SearchUser: FC<IProps> = memo(({ searchFn, keyword, setKeyword, setIsKeywo
     if (searchInputRef.current && event.target === searchInputRef.current) {
       setIsKeywordFocused(true)
     }
+  }*/
   }
-  const submitFormHandler = (formik: FormikProps<SearchForm>) => {
-    formik.submitForm()
+  const submitFormHandler = (value: { keyword: string }) => {
+    searchFn(value.keyword)
   }
-  useEffect(() => {
+  {
+    /*useEffect(() => {
     document.addEventListener('click', checkSearchBlur)
     return () => {
       document.removeEventListener('click', checkSearchBlur)
     }
-  }, [])
+  }, [])*/
+  }
   return (
     <div>
       <Formik
         initialValues={{ keyword: '' }}
         validationSchema={keywordSchema}
-        onSubmit={() => searchFn(keyword)}
+        onSubmit={submitFormHandler}
         validateOnBlur={false}
         validateOnChange={false}
       >
@@ -61,23 +64,12 @@ const SearchUser: FC<IProps> = memo(({ searchFn, keyword, setKeyword, setIsKeywo
           <Form className="flex">
             <AInput
               ref={searchInputRef}
-              value={keyword}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                const newValue = e.target.value
-                setKeyword(newValue) // Update local state
-                formik.setFieldValue('keyword', newValue) // Update Formik state
-              }}
-              blurwithempty={blurWithEmpty.toString()}
+              // blurwithempty={blurWithEmpty.toString()}
               name="keyword"
               type="text"
               placeholder="ID를 입력하세요."
             />
-            <Button
-              onClick={() => submitFormHandler(formik)}
-              ref={searchButtonRef}
-              className="ml-4 h-14"
-              variant="contained"
-            >
+            <Button type="submit" ref={searchButtonRef} className="ml-4 h-14" variant="contained">
               검색
             </Button>
           </Form>

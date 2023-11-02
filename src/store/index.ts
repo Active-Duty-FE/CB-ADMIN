@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import userInterfaceSlice from './modules/user-interface'
+import metaSlice from './modules/meta'
 const store = configureStore({
   reducer: {
-    [userInterfaceSlice.name]: userInterfaceSlice.reducer
+    [userInterfaceSlice.name]: userInterfaceSlice.reducer,
+    [metaSlice.name]: metaSlice.reducer
   },
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware({

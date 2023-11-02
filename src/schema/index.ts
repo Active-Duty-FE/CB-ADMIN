@@ -1,14 +1,8 @@
 import { number, object, string } from 'yup'
 
 export const loginSchema = object({
-  username: string()
-    .min(5, 'Must be between 6 ~ 20')
-    .max(20, 'Must be between 6 ~ 20')
-    .required('ID는 필수 입력 사항입니다.'),
-  password: string()
-    .min(5, 'Must be 20 characters or less')
-    .max(20, 'Must be between 6 ~ 20')
-    .required('비밀번호는 필수 입력 사항입니다.')
+  username: string().required('ID는 필수 입력 사항입니다.'),
+  password: string().required('비밀번호는 필수 입력 사항입니다.')
 })
 
 export const userEditSchema = object({

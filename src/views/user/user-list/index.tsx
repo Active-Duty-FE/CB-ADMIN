@@ -127,16 +127,6 @@ const UserList = forwardRef(() => {
       setTotalCount(data.data.total)
     }
   }, [data])
-  // queryClient.prefetchQuery({
-  //   queryKey: userListKeys.list({ pagenum: pagenum + 1, pagesize, query: keyword }),
-  //   queryFn: () =>
-  //     appRequest.get<Response<UserListType>>('/users', { params: { pagenum: pagenum + 1, pagesize, query: keyword } })
-  // })
-  // queryClient.prefetchQuery({
-  //   queryKey: userListKeys.list({ pagenum: pagenum - 1, pagesize, query: keyword }),
-  //   queryFn: () =>
-  //     appRequest.get<Response<UserListType>>('/users', { params: { pagenum: pagenum - 1, pagesize, query: keyword } })
-  // })
 
   const fetchAllUser = () => {
     setKeyword('')
@@ -191,34 +181,11 @@ const UserList = forwardRef(() => {
   })
   const getRoleIdbasedOnRolename = (role_name: string) => {
     let roleId = -1
-    switch (role_name) {
-      case '주임':
-        roleId = 30
-        break
-      case '과장-인사':
-        roleId = 31
-        break
-      case '대리-인사':
-        roleId = 34
-        break
-      case '대리-상품':
-        roleId = 39
-        break
-      case '과장-상품':
-        roleId = 40
-        break
-      case '테스트':
-        roleId = 41
-        break
-      case '테스트1':
-        roleId = 58
-        break
-      case '관리자':
-        roleId = 1
-        break
-      default:
-        break
-    }
+    roles.data?.map((item) => {
+      if (item.roleName === role_name) {
+        roleId = item.id
+      }
+    })
     return roleId
   }
   const submitUserEdit = async (value: UserEdit) => {
@@ -303,7 +270,6 @@ const UserList = forwardRef(() => {
           <SearchUser
             isKeywordFocused={isKeywordFocused}
             setIsKeywordFocused={useCallback(setIsKeywordFocused, [])}
-            keyword={keyword}
             setKeyword={useCallback(setKeyword, [])}
             searchFn={searchFn}
           />

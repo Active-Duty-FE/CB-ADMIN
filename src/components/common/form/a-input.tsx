@@ -7,10 +7,17 @@ const AInput = memo(
     const [field, meta] = useField(props)
     return (
       <>
-        <TextField
+        {/* <TextField
           inputRef={ref}
           error={props.blurwithempty === 'true' && meta.error && meta.touched}
           helperText={props.blurwithempty === 'true' && meta.error && meta.touched && `${meta.error}`}
+          {...field}
+          {...props}
+        /> */}
+        <TextField
+          inputRef={ref}
+          error={meta.error && meta.touched}
+          helperText={meta.error && meta.touched && `${meta.error}`}
           {...field}
           {...props}
         />
