@@ -3,6 +3,8 @@ import {
   Button,
   Chip,
   Collapse,
+  Dialog,
+  DialogActions,
   IconButton,
   Table,
   TableBody,
@@ -19,7 +21,7 @@ import type { FC, MouseEvent, ReactNode } from 'react'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { RoleParent, RoleChild } from '@/types/ResponseType'
+import { RoleParent, RoleChild, Response } from '@/types/ResponseType'
 import CollapsedRow from './collapsed-row'
 import { ArrowRightOutlined } from '@mui/icons-material'
 import { border } from '@mui/system'
@@ -28,6 +30,10 @@ import { queryClient } from '@/router'
 import { appRequest } from '@/service'
 import { roleListKeys } from '@/keys'
 import SelectPermissionModal from './select-permission-modal'
+import ConfirmDialog from '@/components/common/confirm-dailog'
+import { useAppDispatch, useAppSelector } from '@/hooks/store'
+import { updateMetaSlice } from '@/store/modules/meta'
+import { useSelector } from 'react-redux'
 interface IProps {
   children?: ReactNode
   row: RoleParent
@@ -39,9 +45,15 @@ const Row: FC<IProps> = memo((props) => {
   const { row, index, expanded } = props
   const [open, setOpen] = React.useState(false)
   const [popupOpen, setPopupOpen] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [deleteId, setDeleteId] = useState(NaN)
   const [selectedPermissionsModalOpen, setSelectedPermissionsModalOpen] = useState(false)
-  const [selectedPermissions, setSelectedPermissions] = useState<string[]>([])
-  const roleNameRef = useRef<HTMLTableCellElement>(null)
+  const appDispatch = useAppDispatch()
+  const { metaSwitch } = useAppSelector((state) => {
+    return {
+      metaSwitch: state.metaSlice.switch
+    }
+  })
   const roleDescRef = useRef<HTMLTableCellElement>()
   const checkHasChildren = (roleChild: RoleChild[]) => {
     for (const item of roleChild) {
@@ -67,7 +79,7 @@ const Row: FC<IProps> = memo((props) => {
       <div className={checkHasChildren(roleChildren) ? '' : 'flex flex-row flex-wrap m-w-[1000px]'}>
         {roleChildren.map((roleChild, i) => (
           <div key={roleChild.id} className={`flex items-center ${generateBorderClass(roleChildren, i)}`}>
-            <CollapsedRow rightsId={roleChild.id} roleId={roleId} roleChild={roleChild} />
+            <CollapsedRow roleId={roleId} roleChild={roleChild} />
             {checkHasChildren(roleChildren) ? <ArrowRightOutlined /> : <></>}
             {roleChild.children && generateTreeData(roleChild.children, row.id)}
           </div>
@@ -84,11 +96,15 @@ const Row: FC<IProps> = memo((props) => {
   }
   const deleteRoleHandler = (e: MouseEvent, roleId: number) => {
     e.stopPropagation()
+    setDeleteId(roleId)
+    setConfirmOpen(true)
+  }
+  const confirmDeleteRole = (roleId: number) => {
     queryClient.fetchQuery({
       queryKey: [roleListKeys.all, 'delete', roleId],
       queryFn: () =>
-        appRequest.delete(`/roles/${roleId}`).then((res) => {
-          alert('删除成功')
+        appRequest.delete<Response>(`/roles/${roleId}`).then((res) => {
+          appDispatch(updateMetaSlice({ ...res.data.meta, switch: !metaSwitch }))
           queryClient.invalidateQueries(roleListKeys.lists())
         })
     })
@@ -134,6 +150,14 @@ const Row: FC<IProps> = memo((props) => {
         open={selectedPermissionsModalOpen}
         setSelectedPermissionsModalOpen={setSelectedPermissionsModalOpen}
       />
+      <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogActions>
+          <Button onClick={() => confirmDeleteRole(deleteId)} autoFocus>
+            확인
+          </Button>
+          <Button onClick={() => setConfirmOpen(false)}>취소</Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   )
 })

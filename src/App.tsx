@@ -5,7 +5,7 @@ import router from './router'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useAppSelector } from './hooks/store'
-import { Snackbar } from '@mui/material'
+import { Fade, Snackbar } from '@mui/material'
 
 function App() {
   const [alertOpen, setAlertOpen] = useState(false)
@@ -17,10 +17,8 @@ function App() {
   })
 
   useEffect(() => {
-    if (meta.status !== 200) {
-      setAlertOpen(true)
-      setAlertMessage(meta.msg)
-    }
+    setAlertOpen(true)
+    setAlertMessage(meta.msg)
   }, [meta.switch])
   const handleSnackBarClose = () => {
     setAlertOpen(false)
@@ -29,12 +27,13 @@ function App() {
     <div>
       <RouterProvider router={router} />
       <Snackbar
-        autoHideDuration={1000}
+        autoHideDuration={2000}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={alertOpen}
         message={alertMessage}
         key="topcenter"
         onClose={handleSnackBarClose}
+        TransitionComponent={Fade}
       />
     </div>
   )

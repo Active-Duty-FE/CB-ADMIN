@@ -1,8 +1,8 @@
 import { permissionKeys, roleListKeys } from '@/keys'
 import { appRequest } from '@/service'
 import { RoleChild } from '@/types/ResponseType'
-import { Chip } from '@mui/material'
-import React, { memo } from 'react'
+import { Button, Chip, Dialog, DialogActions } from '@mui/material'
+import React, { memo, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { useQueryClient } from 'react-query'
 
@@ -10,20 +10,20 @@ interface IProps {
   children?: ReactNode
   roleChild: RoleChild
   roleId: number
-  rightsId: number
 }
 
-const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId, rightsId }) => {
+const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId }) => {
   const queryClient = useQueryClient()
-  const handleDelete = (roleId: number, rightsId: number) => {
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [deleteId, setDeleteId] = useState(NaN)
+  const confirmDeletePermission = (roleId: number, rightsId: number) => {
     if (roleId && rightsId) {
       queryClient
         .fetchQuery({
-          queryKey: [...permissionKeys.delete(roleId, rightsId)],
+          queryKey: [...permissionKeys.delete(roleId, Number(rightsId))],
           queryFn: () => appRequest.delete(`/roles/${roleId}/rights/${rightsId}`)
         })
         .then((res) => {
-          alert('DELETE RIGHTS SUCCEDED')
           queryClient.invalidateQueries([...roleListKeys.lists()])
         })
     } else {
@@ -33,10 +33,13 @@ const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId, rightsId }) => {
           queryFn: () => appRequest.delete(`/roles/${roleId}`)
         })
         .then((res) => {
-          alert('删除ROLE成功')
           queryClient.invalidateQueries([...roleListKeys.lists()])
         })
     }
+  }
+  const deletePermissionHandler = (deleteId: number) => {
+    setDeleteId(deleteId)
+    setConfirmOpen(true)
   }
   return (
     <>
@@ -45,8 +48,16 @@ const CollapsedRow: FC<IProps> = memo(({ roleChild, roleId, rightsId }) => {
         variant="outlined"
         className="m-3 min-w-[120px] hover:bg-stone-100"
         label={roleChild.authName}
-        onDelete={() => handleDelete(roleId, rightsId)}
+        onDelete={() => deletePermissionHandler(roleChild.id)}
       />
+      <Dialog open={confirmOpen} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogActions>
+          <Button onClick={() => confirmDeletePermission(roleId, deleteId)} autoFocus>
+            확인
+          </Button>
+          <Button onClick={() => setConfirmOpen(false)}>취소</Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 })

@@ -220,14 +220,11 @@ const UserList = forwardRef(() => {
       .fetchQuery({ queryFn: () => appRequest.delete<Response<null>>(`/users/${rowId}`), staleTime: 0 })
       .then((res) => {
         if (res.data.meta.status === 200) {
-          alert('删除成功')
           queryClient.invalidateQueries({ queryKey: userListKeys.list({ pagenum, pagesize, query: keyword }) })
         }
       })
       .catch((error) => {
-        if (error === 'meta 400') {
-          alert('관리자는 삭제 할수 없습니다.')
-        }
+        console.log(error)
       })
   }
   const deleteHandler = (e: MouseEvent<HTMLButtonElement>, rowId: number) => {

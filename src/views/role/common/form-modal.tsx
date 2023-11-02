@@ -32,13 +32,11 @@ const FormModal: FC<IProps> = memo(({ open, setOpen, type, defaultValue }) => {
         switch (type) {
           case 'create':
             return appRequest.post('/roles', { data: value }).then((res) => {
-              alert('创建成功')
               setOpen(false)
               queryClient.invalidateQueries(roleListKeys.lists())
             })
           case 'update':
             return appRequest.put(`/roles/${defaultValue?.id}`, { data: value }).then((res) => {
-              alert('创建成功')
               setOpen(false)
               queryClient.invalidateQueries(roleListKeys.lists())
             })

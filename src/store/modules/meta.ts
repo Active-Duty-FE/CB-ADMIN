@@ -1,8 +1,9 @@
+import { MetaStatus } from '@/types/ResponseType'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 type InitialState = {
-  status: 200 | 201 | 204 | 400 | 401 | 403 | 404 | 422 | 500
+  status: MetaStatus
   msg: string
   switch: boolean
 }

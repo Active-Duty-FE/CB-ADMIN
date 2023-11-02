@@ -44,9 +44,7 @@ function Login() {
         navigate('/')
       }
     } catch (error) {
-      if (error === 'meta 400') {
-        alert('아이디 혹은 비밀번호 오류입니다.')
-      }
+      console.log(error)
     } finally {
       setLoading(false)
     }

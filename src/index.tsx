@@ -50,16 +50,7 @@ const theme = createTheme({
     }
   }
 })
-function fallbackRender() {
-  // Call resetErrorBoundary() to reset the error boundary and retry the render.
 
-  return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre style={{ color: 'red' }}>error</pre>
-    </div>
-  )
-}
 root.render(
   // <React.StrictMode>
   <ThemeProvider theme={theme}>

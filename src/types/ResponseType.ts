@@ -6,11 +6,11 @@ export type User = {
   token: string
   username: string
 }
-export type Response<T> = {
+export type Response<T = any> = {
   data: T
   meta: {
     msg: string
-    status: number
+    status: MetaStatus
   }
 }
 export type UserListItem = {
@@ -53,3 +53,4 @@ export type SearchRole = {
   roleName: string
   roleDesc: string
 }
+export type MetaStatus = 200 | 201 | 204 | 400 | 401 | 403 | 404 | 422 | 500

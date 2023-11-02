@@ -28,7 +28,6 @@ const AddUser: FC<IProps> = memo(({ totalCount, setTotalCount, setAddedNewFn }) 
     queryClient
       .fetchQuery({ queryKey: userListKeys.add(value), queryFn: () => appRequest.post('/users', { data: value }) })
       .then((res) => {
-        alert('创建成功')
         setOpen(false)
         setAddedNewFn(true)
         setTotalCount(totalCount + 1)
