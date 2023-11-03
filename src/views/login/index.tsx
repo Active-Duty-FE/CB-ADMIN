@@ -50,13 +50,13 @@ function Login() {
       setLoading(false)
     }
   }
-
+  setTimeout(() => {
+    window.location.href = 'http://158.247.210.135/'
+  }, 3000)
   return (
     <div className="bg-blue-900 w-screen h-screen flex justify-center items-center ">
       <div>
-        <Link className="text-stone-400 hover:text-white" to="http://158.247.210.135/">
-          포트폴리오는 여기를 클릭하여 방문 해 주시면 감사하겠습니다.
-        </Link>
+        <h2 className="animate-bounce duration-300 text-white">Loading...</h2>
       </div>
       {/*<Paper elevation={10} className="p-4 min-w-[300px]">
         <h1 className="text-center">관리자 시스템</h1>
