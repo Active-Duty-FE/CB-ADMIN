@@ -175,6 +175,11 @@ const UserList = forwardRef(() => {
       })
       return value
     },
+    onSuccess: (res) => {
+      if (res.data.meta.status === 400) {
+      }
+      console.log(res, 'res')
+    },
     onSettled: (res) => {
       // queryClient.invalidateQueries(userListKeys.list({ pagenum, pagesize, query: keyword }))
     }
@@ -201,8 +206,8 @@ const UserList = forwardRef(() => {
         const newOld = old.data.data.users.map((item: any) => {
           if (item.id === row.id) {
             item.mg_state = !item.mg_state
+            console.log('item=', item, 'row=', row)
           }
-
           return item
         })
         return Object.assign(old, newOld)
@@ -308,11 +313,7 @@ const UserList = forwardRef(() => {
                     <Formik initialValues={initialValues[index]} onSubmit={submitUserEdit}>
                       {(formik) => (
                         <TableRow className={`${editingRow.includes(getIndexBasedOnPage(index)) && 'bg-stone-400/10'}`}>
-                          <StyledTableCell className="pl-3">
-                            {isLoading || isFetching
-                              ? getIndexBasedOnPage(index) - pagesize
-                              : getIndexBasedOnPage(index)}
-                          </StyledTableCell>
+                          <StyledTableCell className="pl-3">{getIndexBasedOnPage(index)}</StyledTableCell>
                           <StyledTableCell component="th" scope="row">
                             {row.username}
                           </StyledTableCell>
@@ -351,7 +352,7 @@ const UserList = forwardRef(() => {
 
                           <StyledTableCell align="center">
                             <Switch
-                              checked={row.mg_state}
+                              defaultChecked={row.mg_state}
                               inputProps={{ 'aria-label': 'Switch demo' }}
                               onChange={() => changeUserState(row)}
                             />

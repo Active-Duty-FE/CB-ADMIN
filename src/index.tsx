@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
@@ -10,6 +10,8 @@ import { queryClient } from './router'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Provider } from 'react-redux'
 import store from './store'
+import { SnackbarProvider, useSnackbar } from 'notistack'
+import { useAppSelector } from './hooks/store'
 const rootElement = document.getElementById('root') as HTMLElement
 const root = ReactDOM.createRoot(rootElement)
 const theme = createTheme({
@@ -58,7 +60,9 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <StyledEngineProvider injectFirst>
           <Provider store={store}>
-            <App />
+            <SnackbarProvider anchorOrigin={{ horizontal: 'center', vertical: 'top' }}>
+              <App />
+            </SnackbarProvider>
           </Provider>
         </StyledEngineProvider>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}

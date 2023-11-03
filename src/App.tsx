@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import router from './router'
@@ -6,35 +6,33 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useAppSelector } from './hooks/store'
 import { Fade, Snackbar } from '@mui/material'
-
+import { SnackbarProvider, useSnackbar } from 'notistack'
+type SnackBar = {
+  open: boolean
+  msg: string
+}
 function App() {
-  const [alertOpen, setAlertOpen] = useState(false)
-  const [alertMessage, setAlertMessage] = useState('')
+  const { enqueueSnackbar } = useSnackbar()
+  const isFirstLoad = useRef(true)
   const { meta } = useAppSelector((state) => {
     return {
       meta: state.metaSlice
     }
   })
-
+  const isSuccessType = /^2\d+/.test(meta.status.toString())
   useEffect(() => {
-    setAlertOpen(true)
-    setAlertMessage(meta.msg)
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false
+      return
+    }
+    enqueueSnackbar(meta.msg, {
+      variant: isSuccessType ? 'success' : 'warning',
+      autoHideDuration: isSuccessType ? 1000 : 5000
+    })
   }, [meta.switch])
-  const handleSnackBarClose = () => {
-    setAlertOpen(false)
-  }
   return (
     <div>
       <RouterProvider router={router} />
-      <Snackbar
-        autoHideDuration={2000}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={alertOpen}
-        message={alertMessage}
-        key="topcenter"
-        onClose={handleSnackBarClose}
-        TransitionComponent={Fade}
-      />
     </div>
   )
 }
