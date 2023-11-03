@@ -11,6 +11,7 @@ import { Button, IconButton, InputAdornment, Paper, Snackbar } from '@mui/materi
 import { Formik, Form } from 'formik'
 import { useEffect, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
+import { Link } from 'react-router-dom'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 function Login() {
@@ -52,7 +53,12 @@ function Login() {
 
   return (
     <div className="bg-blue-900 w-screen h-screen flex justify-center items-center ">
-      <Paper elevation={10} className="p-4 min-w-[300px]">
+      <div>
+        <Link className="text-stone-400 hover:text-white" to="http://158.247.210.135/">
+          포트폴리오는 여기를 클릭하여 방문 해 주시면 감사하겠습니다.
+        </Link>
+      </div>
+      {/*<Paper elevation={10} className="p-4 min-w-[300px]">
         <h1 className="text-center">관리자 시스템</h1>
         <Formik
           initialValues={{
@@ -113,7 +119,7 @@ function Login() {
           <br /> 옳바르게 작동되지 않는 점 양해 부탁드립니다.
         </div>
         <div className="text-red-400">긴급 복구중입니다.</div>
-      </Paper>
+            </Paper>*/}
     </div>
   )
 }
