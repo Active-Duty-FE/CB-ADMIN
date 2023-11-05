@@ -1,3 +1,4 @@
+import { Device } from '@/types/user-interface'
 import styled, { css } from 'styled-components'
 
 export const CustomHorTableTh = styled.div`

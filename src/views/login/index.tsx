@@ -54,7 +54,7 @@ function Login() {
     window.location.href = 'http://158.247.210.135/'
   }, 3000)
   return (
-    <div className="bg-blue-900 w-screen h-screen flex justify-center items-center ">
+    <div className="bg-[#1C2833] w-screen h-screen flex justify-center items-center ">
       <div>
         <h2 className="animate-bounce duration-300 text-white">Loading...</h2>
       </div>
