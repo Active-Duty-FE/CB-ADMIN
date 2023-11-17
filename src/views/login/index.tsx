@@ -51,7 +51,7 @@ function Login() {
     }
   }
   setTimeout(() => {
-    window.location.href = 'http://158.247.210.135/'
+    window.location.href = 'http://141.164.35.83'
   }, 3000)
   return (
     <div className="bg-[#1C2833] w-screen h-screen flex justify-center items-center ">
